@@ -42,12 +42,14 @@ namespace Refuctor.Objects
         public void Go()
         {
             Log.Info("==========================================================================================================================");
-
-            ProcessDirs();
-            ProcessFiles();
+            foreach (var term in Terms)
+            {
+                ProcessDirs(term);
+                ProcessFiles(term);   
+            }
         }
 
-        private void ProcessDirs()
+        private void ProcessDirs(Term term)
         {
             var dirList = Directory.GetDirectories(RootPath, "*.*", SearchOption.AllDirectories);
 
@@ -58,13 +60,13 @@ namespace Refuctor.Objects
 
                 if (!antiMatch)
                 {
-                    var dirRenamer = new DirectoryRenamer(dirInfo, IsTestMode, Terms);
+                    var dirRenamer = new DirectoryRenamer(dirInfo, IsTestMode, new List<Term> { term });
                     dirRenamer.Go();
                 }
             }
         }
 
-        private void ProcessFiles()
+        private void ProcessFiles(Term term)
         {
             var fileList = Directory.GetFiles(RootPath, "*.*", SearchOption.AllDirectories);
            
@@ -77,10 +79,10 @@ namespace Refuctor.Objects
                 if (extensionMatch && !antiMatch)
                 {
 
-                    var wordReplacer = new WordReplacer(fileInfo, IsTestMode, Terms);
+                    var wordReplacer = new WordReplacer(fileInfo, IsTestMode, new List<Term> { term });
                     wordReplacer.Go();
 
-                    var fileRenamer = new FileRenamer(fileInfo, IsTestMode, Terms);
+                    var fileRenamer = new FileRenamer(fileInfo, IsTestMode, new List<Term> { term });
                     fileRenamer.Go();
 
                 }

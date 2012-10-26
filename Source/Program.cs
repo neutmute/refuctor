@@ -15,13 +15,17 @@ namespace Refuctor
 
             var looper = new FileLooper();
             looper.RootPath = @"C:\Code\Application\Kraken";
-            looper.IsTestMode = true;
+            looper.IsTestMode = false;
 
             looper.Terms.Add(new Term { Target = "Metric Reading", ReplaceWith = "Metric Value" });
             looper.Terms.Add(new Term { Target = "Mib Reading", ReplaceWith = "Mib Value" });
+
             looper.Terms.Add(new Term { Target = "MetricReading", ReplaceWith = "MetricValue" });
             looper.Terms.Add(new Term { Target = "DeviceReading", ReplaceWith = "DeviceValue" });
             looper.Terms.Add(new Term { Target = "MibReading", ReplaceWith = "MibValue" });
+
+            looper.Terms.Add(new Term { Target = "Mib Scan", ReplaceWith = "Mib Reading" });
+            looper.Terms.Add(new Term { Target = "Metric Scan", ReplaceWith = "Metric Reading" });
             looper.Terms.Add(new Term {Target = "MetricScan", ReplaceWith = "MetricReading"});
             looper.Terms.Add(new Term { Target = "MibScan", ReplaceWith = "MibReading" });
             

@@ -16,14 +16,12 @@ namespace Refuctor.Objects.Renamers
 
         public SvnRenamer(bool isTestMode, List<Term> terms)
         {
+
+            FriendlyName = "SVN Rename";
+            Filename = @"C:\Program Files\TortoiseSVN\bin\Svn.exe";
             IsTestMode = isTestMode;
             Terms = terms;
         }
 
-        protected void SvnRename()
-        {
-            FriendlyName = "SVN Rename";
-            Filename = @"C:\Program Files\TortoiseSVN\bin\Svn.exe";
-        }
     }
 }
