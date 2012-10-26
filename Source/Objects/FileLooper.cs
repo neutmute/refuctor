@@ -58,7 +58,8 @@ namespace Refuctor.Objects
 
                 if (!antiMatch)
                 {
-                    
+                    var dirRenamer = new DirectoryRenamer(dirInfo, IsTestMode, Terms);
+                    dirRenamer.Go();
                 }
             }
         }
