@@ -3,18 +3,45 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Refuctor", "Source\Refuctor.csproj", "{06509C71-4867-417B-A61E-9C3C5EA84787}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{A55C5252-AE9A-4313-91BF-4F262687A388}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kraken.Framework.Core", "..\..\Framework\Kraken.Framework.Core\Kraken.Framework.Core\Kraken.Framework.Core.csproj", "{D0365619-0C1B-4AED-875B-1882E504FEF9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{06509C71-4867-417B-A61E-9C3C5EA84787}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{06509C71-4867-417B-A61E-9C3C5EA84787}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{06509C71-4867-417B-A61E-9C3C5EA84787}.Debug|Mixed Platforms.Build.0 = Debug|x86
 		{06509C71-4867-417B-A61E-9C3C5EA84787}.Debug|x86.ActiveCfg = Debug|x86
 		{06509C71-4867-417B-A61E-9C3C5EA84787}.Debug|x86.Build.0 = Debug|x86
+		{06509C71-4867-417B-A61E-9C3C5EA84787}.Release|Any CPU.ActiveCfg = Release|x86
+		{06509C71-4867-417B-A61E-9C3C5EA84787}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{06509C71-4867-417B-A61E-9C3C5EA84787}.Release|Mixed Platforms.Build.0 = Release|x86
 		{06509C71-4867-417B-A61E-9C3C5EA84787}.Release|x86.ActiveCfg = Release|x86
 		{06509C71-4867-417B-A61E-9C3C5EA84787}.Release|x86.Build.0 = Release|x86
+		{D0365619-0C1B-4AED-875B-1882E504FEF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0365619-0C1B-4AED-875B-1882E504FEF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0365619-0C1B-4AED-875B-1882E504FEF9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D0365619-0C1B-4AED-875B-1882E504FEF9}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D0365619-0C1B-4AED-875B-1882E504FEF9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D0365619-0C1B-4AED-875B-1882E504FEF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0365619-0C1B-4AED-875B-1882E504FEF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0365619-0C1B-4AED-875B-1882E504FEF9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D0365619-0C1B-4AED-875B-1882E504FEF9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D0365619-0C1B-4AED-875B-1882E504FEF9}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D0365619-0C1B-4AED-875B-1882E504FEF9} = {A55C5252-AE9A-4313-91BF-4F262687A388}
 	EndGlobalSection
 EndGlobal

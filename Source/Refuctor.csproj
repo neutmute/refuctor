@@ -46,9 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Objects\Renamers\SvnDirectoryRenamer.cs" />
     <Compile Include="Objects\FileExtension.cs" />
     <Compile Include="Objects\FileLooper.cs" />
-    <Compile Include="Objects\FileRenamer.cs" />
+    <Compile Include="Objects\Renamers\SvnFileRenamer.cs" />
+    <Compile Include="Objects\Renamers\SvnRenamer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Objects\Term.cs" />
@@ -57,6 +59,12 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Framework\Kraken.Framework.Core\Kraken.Framework.Core\Kraken.Framework.Core.csproj">
+      <Project>{D0365619-0C1B-4AED-875B-1882E504FEF9}</Project>
+      <Name>Kraken.Framework.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

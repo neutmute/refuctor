@@ -18,6 +18,7 @@ namespace Refuctor
             looper.IsTestMode = true;
 
             looper.Terms.Add(new Term {Target = "MibScan", ReplaceWith = "MibReading"});
+            //looper.Terms.Add(new Term { Target = "Mib Scan", ReplaceWith = "Mib Reading" });
        //     looper.Terms.Add(new Term { Target = "MetricScan", ReplaceWith = "MetricReading" });
             
 

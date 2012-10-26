@@ -27,7 +27,10 @@ namespace Refuctor
 
         public void Go()
         {
+            Log.Info(FileInfo.FullName);
             var lines = File.ReadAllLines(FileInfo.FullName);
+            var newLines = new List<string>();
+            bool touched = false;
             for (int i = 0; i < lines.Length; i++)
             {
                 int lineNumber = i+1;
@@ -37,14 +40,23 @@ namespace Refuctor
                     var permutatedTerms = term.GetPermutations();
                     foreach (var permutatedTerm in permutatedTerms)
                     {
-                        updatedLine = updatedLine.Replace(permutatedTerm.Target, permutatedTerm.ReplaceWith);    
+                        updatedLine = updatedLine.Replace(permutatedTerm.Target, permutatedTerm.ReplaceWith);
                     }
                 }
 
                 if (string.Compare(lines[i], updatedLine) != 0)
                 {
-                    Log.Info(updatedLine);
+                    Log.Info("Line {0}\r\n{1}\r\n{2}", lineNumber, lines[i], updatedLine);
+                    touched = true;
                 }
+
+                newLines.Add(updatedLine);
+            }
+
+            if (!IsTestMode && touched)
+            {
+                FileInfo.Delete();
+                File.WriteAllLines(FileInfo.FullName, newLines.ToArray());
             }
         }
     }

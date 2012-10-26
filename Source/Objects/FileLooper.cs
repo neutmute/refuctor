@@ -36,13 +36,38 @@ namespace Refuctor.Objects
 
             AntiFileTerms = new List<string>();
             AntiFileTerms.Add("_ReSharper");
+            AntiFileTerms.Add("svn");
         }
 
         public void Go()
         {
             Log.Info("==========================================================================================================================");
-            var fileList = Directory.GetFiles(RootPath, "*.*", SearchOption.AllDirectories);
 
+            //ProcessDirs();
+
+            ProcessFiles();
+        }
+
+        private void ProcessDirs()
+        {
+            var dirList = Directory.GetDirectories(RootPath, "*.*", SearchOption.AllDirectories);
+
+            foreach (var dir in dirList)
+            {
+                DirectoryInfo dirInfo = new DirectoryInfo(dir);
+                bool antiMatch = AntiFileTerms.Any(t => dirInfo.FullName.Contains(t));
+
+                if (!antiMatch)
+                {
+                    
+                }
+            }
+        }
+
+        private void ProcessFiles()
+        {
+            var fileList = Directory.GetFiles(RootPath, "*.*", SearchOption.AllDirectories);
+           
             foreach (var file in fileList)
             {
                 FileInfo fileInfo = new FileInfo(file);
