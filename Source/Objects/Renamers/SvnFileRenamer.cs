@@ -15,9 +15,9 @@ namespace Refuctor
 
         public FileInfo FileInfo { get; set; }
         
-        public FileRenamer(FileInfo file, bool isTestMode, List<Term> terms)
+        public FileRenamer(FileInfo file, bool isTestMode, List<Term> terms) : base(isTestMode, terms)
         {
-            
+            FileInfo = file;
         }
 
         public void Go()

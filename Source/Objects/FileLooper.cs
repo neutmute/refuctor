@@ -43,8 +43,7 @@ namespace Refuctor.Objects
         {
             Log.Info("==========================================================================================================================");
 
-            //ProcessDirs();
-
+            ProcessDirs();
             ProcessFiles();
         }
 
@@ -76,7 +75,6 @@ namespace Refuctor.Objects
 
                 if (extensionMatch && !antiMatch)
                 {
-                    //Log.Info("Processing {0}", fileInfo.FullName);
 
                     var wordReplacer = new WordReplacer(fileInfo, IsTestMode, Terms);
                     wordReplacer.Go();

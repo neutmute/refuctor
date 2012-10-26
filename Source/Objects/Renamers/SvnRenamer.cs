@@ -14,6 +14,12 @@ namespace Refuctor.Objects.Renamers
 
         public List<Term> Terms { get; private set; }
 
+        public SvnRenamer(bool isTestMode, List<Term> terms)
+        {
+            IsTestMode = isTestMode;
+            Terms = terms;
+        }
+
         protected void SvnRename()
         {
             FriendlyName = "SVN Rename";

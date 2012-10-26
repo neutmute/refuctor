@@ -15,9 +15,9 @@ namespace Refuctor
 
         public DirectoryInfo DirectoryInfo { get; set; }
 
-        public DirectoryRenamer(DirectoryInfo Directory, bool isTestMode, List<Term> terms)
+        public DirectoryRenamer(DirectoryInfo dirInfo, bool isTestMode, List<Term> terms) : base(isTestMode, terms)
         {
-
+            DirectoryInfo = dirInfo;
         }
 
         public void Go()

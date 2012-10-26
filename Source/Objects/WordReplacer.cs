@@ -27,7 +27,7 @@ namespace Refuctor
 
         public void Go()
         {
-            Log.Info(FileInfo.FullName);
+            
             var lines = File.ReadAllLines(FileInfo.FullName);
             var newLines = new List<string>();
             bool touched = false;
@@ -47,6 +47,11 @@ namespace Refuctor
                 if (string.Compare(lines[i], updatedLine) != 0)
                 {
                     Log.Info("Line {0}\r\n{1}\r\n{2}", lineNumber, lines[i], updatedLine);
+
+                    if (!touched)
+                    {
+                        Log.Info(FileInfo.FullName);
+                    }
                     touched = true;
                 }
 
