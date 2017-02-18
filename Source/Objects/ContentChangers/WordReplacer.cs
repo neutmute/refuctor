@@ -75,8 +75,9 @@ namespace Refuctor
                     {
                         var includePath = noneBlockMatch.Groups["IncludePath"].Value;
 
-                        var newNoneBlock = noneBlock.Replace("<CopyAlways><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>\r\n", string.Empty);
-                        newContent = originalContent.Replace(noneBlock, newNoneBlock);
+                        var newNoneBlock = noneBlock.Replace("<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>\r\n", string.Empty);
+                        newNoneBlock = newNoneBlock.Replace("          </None>", "    </None>");
+                        newContent = newContent.Replace(noneBlock, newNoneBlock);
 
                         var includeName = Path.GetFileName(includePath);
                         if (!string.Equals(includeName, linkContent, StringComparison.OrdinalIgnoreCase))
