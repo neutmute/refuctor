@@ -37,6 +37,19 @@ namespace Refuctor
         }
     }
 
+    public class RegexReplacer : ContentChanger
+    {
+        public RegexReplacer(FileInfo file, bool isTestMode) : base(file, isTestMode)
+        {
+
+        }
+
+        protected override string GetNewContent()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     public class WordReplacer : ContentChanger
     {       
         public List<Term> Terms { get; private set; }
