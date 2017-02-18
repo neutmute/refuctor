@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Kraken.Framework.Core;
+using Kraken.Core;
 using NLog;
 using Refuctor.Objects.Renamers;
 

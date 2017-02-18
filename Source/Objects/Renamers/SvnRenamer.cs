@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Kraken.Framework.Core;
+using Kraken.Core;
 
 namespace Refuctor.Objects.Renamers
 {
