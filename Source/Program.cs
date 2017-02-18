@@ -14,7 +14,7 @@ namespace Refuctor
             
 
             var looper = new FileLooper();
-            looper.RootPath = @"C:\Code\Application\Kraken";
+            looper.RootPath = @"D:\Dev\phoenix";
             looper.IsTestMode = true;
 
             //looper.Terms.Add(new Term { Target = "Metric Reading", ReplaceWith = "Metric Value" });
@@ -31,6 +31,9 @@ namespace Refuctor
             
 
             looper.Go();
+
+            Console.WriteLine("Press <Enter>...");
+            Console.ReadLine();
         }
     }
 }

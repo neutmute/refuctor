@@ -42,10 +42,10 @@ namespace Refuctor.Objects
         public void Go()
         {
             Log.Info("==========================================================================================================================");
-            foreach (var term in Terms)
+          //  foreach (var term in Terms)
             {
-                ProcessDirs(term);
-                ProcessFiles(term);   
+               // ProcessDirs(term);
+                ProcessFiles();   
             }
         }
 
@@ -66,7 +66,7 @@ namespace Refuctor.Objects
             }
         }
 
-        private void ProcessFiles(Term term)
+        private void ProcessFiles()
         {
             var fileList = Directory.GetFiles(RootPath, "*.*", SearchOption.AllDirectories);
            
@@ -85,6 +85,7 @@ namespace Refuctor.Objects
                     //var fileRenamer = new FileRenamer(fileInfo, IsTestMode, new List<Term> { term });
                     //fileRenamer.Go();
 
+                    Log.Info($"Processing {fileInfo.Name}");
                     var replacer = new RegexReplacer(fileInfo, IsTestMode);
                     replacer.Go();
                 }

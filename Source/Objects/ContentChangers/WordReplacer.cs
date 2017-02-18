@@ -61,7 +61,7 @@ namespace Refuctor
             var originalContent = GetOriginalContent();
             var newContent = originalContent;
 
-            string regex = @"(?<NoneBlock><None Include=""(?<IncludePath>[\w.\\]*)(?<BeforeLink>[ \w="".\\>\n</]+)<Link>(?<LinkContent>[\w.]*)</Link>[ \w="".\\>\n</]*</None>)";
+            string regex = @"(?<NoneBlock><None Include=""(?<IncludePath>[^""]*?)"">(?<BeforeLink>[ \w="".\\>\r\n</]*?)<Link>(?<LinkContent>[\w.]*?)</Link>[ \w="".\\>\r\n</]*?</None>)";
             var myRegex = new Regex(regex, RegexOptions.None);
             
             foreach (Match noneBlockMatch in myRegex.Matches(originalContent))
@@ -70,11 +70,12 @@ namespace Refuctor
                 {
                     var noneBlock = noneBlockMatch.Groups["NoneBlock"].Value;
                     var linkContent = noneBlockMatch.Groups["LinkContent"]?.Value;
-                    if (!string.IsNullOrEmpty(linkContent))
+                    var isTransformFile = noneBlock.Contains("<IsTransformFile>True</IsTransformFile>");
+                    if (isTransformFile && !string.IsNullOrEmpty(linkContent))
                     {
                         var includePath = noneBlockMatch.Groups["IncludePath"].Value;
 
-                        var newNoneBlock = noneBlock.Replace("<CopyAlways><CopyToOutputDirectory>Always</CopyToOutputDirectory>\r\n", string.Empty);
+                        var newNoneBlock = noneBlock.Replace("<CopyAlways><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>\r\n", string.Empty);
                         newContent = originalContent.Replace(noneBlock, newNoneBlock);
 
                         var includeName = Path.GetFileName(includePath);
