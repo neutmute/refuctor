@@ -61,7 +61,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Objects\ContentChangers\RegexReplacer.cs" />
     <Compile Include="Objects\Renamers\SvnDirectoryRenamer.cs" />
     <Compile Include="Objects\FileExtension.cs" />
     <Compile Include="Objects\FileLooper.cs" />

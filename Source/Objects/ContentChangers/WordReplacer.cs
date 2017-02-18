@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using NLog;
 using Refuctor.Objects;
+using System.Text.RegularExpressions;
 
 namespace Refuctor
 {
@@ -14,7 +15,7 @@ namespace Refuctor
 
         protected Logger Log => _log;
 
-        public FileInfo FileInfo { get; set; }
+        protected FileInfo FileInfo { get; set; }
 
         public bool IsTestMode { get; set; }
         
@@ -26,11 +27,22 @@ namespace Refuctor
 
         protected abstract string GetNewContent();
 
+        protected string[] GetOriginalContentAsLines()
+        {
+            return File.ReadAllLines(FileInfo.FullName);
+        }
+
+        protected string GetOriginalContent()
+        {
+            return File.ReadAllText(FileInfo.FullName);
+        }
+
         public void Go()
         {
             var newContent = GetNewContent();
             if (!IsTestMode && newContent != File.ReadAllText(FileInfo.FullName))
             {
+                Log.Info($"Updated {FileInfo.FullName}");
                 FileInfo.Delete();
                 File.WriteAllText(FileInfo.FullName, newContent);
             }
@@ -46,7 +58,35 @@ namespace Refuctor
 
         protected override string GetNewContent()
         {
-            throw new NotImplementedException();
+            var originalContent = GetOriginalContent();
+            var newContent = originalContent;
+
+            string regex = @"(?<NoneBlock><None Include=""(?<IncludePath>[\w.\\]*)(?<BeforeLink>[ \w="".\\>\n</]+)<Link>(?<LinkContent>[\w.]*)</Link>[ \w="".\\>\n</]*</None>)";
+            var myRegex = new Regex(regex, RegexOptions.None);
+            
+            foreach (Match noneBlockMatch in myRegex.Matches(originalContent))
+            {
+                if (noneBlockMatch.Success)
+                {
+                    var noneBlock = noneBlockMatch.Groups["NoneBlock"].Value;
+                    var linkContent = noneBlockMatch.Groups["LinkContent"]?.Value;
+                    if (!string.IsNullOrEmpty(linkContent))
+                    {
+                        var includePath = noneBlockMatch.Groups["IncludePath"].Value;
+
+                        var newNoneBlock = noneBlock.Replace("<CopyAlways><CopyToOutputDirectory>Always</CopyToOutputDirectory>\r\n", string.Empty);
+                        newContent = originalContent.Replace(noneBlock, newNoneBlock);
+
+                        var includeName = Path.GetFileName(includePath);
+                        if (!string.Equals(includeName, linkContent, StringComparison.OrdinalIgnoreCase))
+                        {
+                            Log.Warn($"{FileInfo.Name}: {includeName} linked to different file: {linkContent}");
+                        }
+                    }
+                }
+            }
+
+            return newContent;
         }
     }
 
@@ -62,9 +102,9 @@ namespace Refuctor
         protected override string GetNewContent()
         {
             
-            var lines = File.ReadAllLines(FileInfo.FullName);
+            var lines = GetOriginalContentAsLines();
             var newLines = new List<string>();
-            bool touched = false;
+            //bool touched = false;
             for (int i = 0; i < lines.Length; i++)
             {
                 int lineNumber = i+1;
@@ -82,11 +122,11 @@ namespace Refuctor
                 {
                     Log.Info("Line {0}\r\n{1}\r\n{2}", lineNumber, lines[i], updatedLine);
 
-                    if (!touched)
-                    {
-                        Log.Info(FileInfo.FullName);
-                    }
-                    touched = true;
+                    //if (!touched)
+                    //{
+                    //    Log.Info(FileInfo.FullName);
+                    //}
+                    //touched = true;
                 }
 
                 newLines.Add(updatedLine);

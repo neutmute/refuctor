@@ -28,15 +28,15 @@ namespace Refuctor.Objects
 
             Extensions = new List<FileExtension>();
             Extensions = new List<FileExtension>();
-            Extensions.Add(new FileExtension(".cs"));
-            Extensions.Add(new FileExtension(".cshtml"));
-            Extensions.Add(new FileExtension(".sql"));
+            //Extensions.Add(new FileExtension(".cs"));
+            //Extensions.Add(new FileExtension(".cshtml"));
+            //Extensions.Add(new FileExtension(".sql"));
             Extensions.Add(new FileExtension(".csproj"));
-            Extensions.Add(new FileExtension(".sqlproj"));
+            //Extensions.Add(new FileExtension(".sqlproj"));
 
             AntiFileTerms = new List<string>();
-            AntiFileTerms.Add("_ReSharper");
-            AntiFileTerms.Add("svn");
+            //AntiFileTerms.Add("_ReSharper");
+            AntiFileTerms.Add(".git");
         }
 
         public void Go()
@@ -79,12 +79,14 @@ namespace Refuctor.Objects
                 if (extensionMatch && !antiMatch)
                 {
 
-                    var wordReplacer = new WordReplacer(fileInfo, IsTestMode, new List<Term> { term });
-                    wordReplacer.Go();
+                    //var wordReplacer = new WordReplacer(fileInfo, IsTestMode, new List<Term> { term });
+                    //wordReplacer.Go();
 
-                    var fileRenamer = new FileRenamer(fileInfo, IsTestMode, new List<Term> { term });
-                    fileRenamer.Go();
+                    //var fileRenamer = new FileRenamer(fileInfo, IsTestMode, new List<Term> { term });
+                    //fileRenamer.Go();
 
+                    var replacer = new RegexReplacer(fileInfo, IsTestMode);
+                    replacer.Go();
                 }
                 else
                 {
