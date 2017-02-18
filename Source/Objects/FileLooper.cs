@@ -25,10 +25,10 @@ namespace Refuctor.Objects
         public FileLooper()
         {
             Terms = new List<Term>();
+
             Extensions = new List<FileExtension>();
             Extensions = new List<FileExtension>();
             Extensions.Add(new FileExtension(".cs"));
-            //Extensions.Add(new FileExtension(".config"));
             Extensions.Add(new FileExtension(".cshtml"));
             Extensions.Add(new FileExtension(".sql"));
             Extensions.Add(new FileExtension(".csproj"));

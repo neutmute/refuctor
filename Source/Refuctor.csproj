@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Objects\ContentChangers\RegexReplacer.cs" />
     <Compile Include="Objects\Renamers\SvnDirectoryRenamer.cs" />
     <Compile Include="Objects\FileExtension.cs" />
     <Compile Include="Objects\FileLooper.cs" />
@@ -69,7 +70,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Objects\Term.cs" />
-    <Compile Include="Objects\WordReplacer.cs" />
+    <Compile Include="Objects\ContentChangers\WordReplacer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
