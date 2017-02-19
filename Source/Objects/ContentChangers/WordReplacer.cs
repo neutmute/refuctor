@@ -1,97 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using NLog;
 using Refuctor.Objects;
-using System.Text.RegularExpressions;
 
 namespace Refuctor
 {
-    public abstract class ContentChanger
-    {
-        private static readonly Logger _log = LogManager.GetCurrentClassLogger();
-
-        protected Logger Log => _log;
-
-        protected FileInfo FileInfo { get; set; }
-
-        public bool IsTestMode { get; set; }
-        
-        public ContentChanger(FileInfo file, bool isTestMode)
-        {
-            FileInfo = file;
-            IsTestMode = isTestMode;
-        }
-
-        protected abstract string GetNewContent();
-
-        protected string[] GetOriginalContentAsLines()
-        {
-            return File.ReadAllLines(FileInfo.FullName);
-        }
-
-        protected string GetOriginalContent()
-        {
-            return File.ReadAllText(FileInfo.FullName);
-        }
-
-        public void Go()
-        {
-            var newContent = GetNewContent();
-            if (!IsTestMode && newContent != File.ReadAllText(FileInfo.FullName))
-            {
-                Log.Info($"Updated {FileInfo.FullName}");
-                FileInfo.Delete();
-                File.WriteAllText(FileInfo.FullName, newContent);
-            }
-        }
-    }
-
-    public class RegexReplacer : ContentChanger
-    {
-        public RegexReplacer(FileInfo file, bool isTestMode) : base(file, isTestMode)
-        {
-
-        }
-
-        protected override string GetNewContent()
-        {
-            var originalContent = GetOriginalContent();
-            var newContent = originalContent;
-
-            string regex = @"(?<NoneBlock><None Include=""(?<IncludePath>[^""]*?)"">(?<BeforeLink>[ \w="".\\>\r\n</]*?)<Link>(?<LinkContent>[\w.]*?)</Link>[ \w="".\\>\r\n</]*?</None>)";
-            var myRegex = new Regex(regex, RegexOptions.None);
-            
-            foreach (Match noneBlockMatch in myRegex.Matches(originalContent))
-            {
-                if (noneBlockMatch.Success)
-                {
-                    var noneBlock = noneBlockMatch.Groups["NoneBlock"].Value;
-                    var linkContent = noneBlockMatch.Groups["LinkContent"]?.Value;
-                    var isTransformFile = noneBlock.Contains("<IsTransformFile>True</IsTransformFile>");
-                    if (isTransformFile && !string.IsNullOrEmpty(linkContent))
-                    {
-                        var includePath = noneBlockMatch.Groups["IncludePath"].Value;
-
-                        var newNoneBlock = noneBlock.Replace("<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>\r\n", string.Empty);
-                        newNoneBlock = newNoneBlock.Replace("          </None>", "    </None>");
-                        newContent = newContent.Replace(noneBlock, newNoneBlock);
-
-                        var includeName = Path.GetFileName(includePath);
-                        if (!string.Equals(includeName, linkContent, StringComparison.OrdinalIgnoreCase))
-                        {
-                            Log.Warn($"{FileInfo.Name}: {includeName} linked to different file: {linkContent}");
-                        }
-                    }
-                }
-            }
-
-            return newContent;
-        }
-    }
-
     public class WordReplacer : ContentChanger
     {       
         public List<Term> Terms { get; private set; }
