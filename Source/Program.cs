@@ -14,7 +14,7 @@ namespace Refuctor
             
 
             var looper = new FileLooper();
-            looper.RootPath = @"D:\Dev\phoenix";
+            looper.RootPath = @"D:\Downloads\test\Phoenix.QuoteFacade.Core\Domain\Origination\Schema";
             looper.IsTestMode = false;
 
             //looper.Terms.Add(new Term { Target = "Metric Reading", ReplaceWith = "Metric Value" });

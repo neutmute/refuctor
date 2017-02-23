@@ -63,11 +63,12 @@
   <ItemGroup>
     <Compile Include="Objects\ContentChangers\ContentChanger.cs" />
     <Compile Include="Objects\ContentChangers\RegexReplacer.cs" />
-    <Compile Include="Objects\Renamers\SvnDirectoryRenamer.cs" />
+    <Compile Include="Objects\Renamers\Svn\SvnDirectoryRenamer.cs" />
     <Compile Include="Objects\FileExtension.cs" />
     <Compile Include="Objects\FileLooper.cs" />
-    <Compile Include="Objects\Renamers\SvnFileRenamer.cs" />
-    <Compile Include="Objects\Renamers\SvnRenamer.cs" />
+    <Compile Include="Objects\Renamers\GeneratedFileRenamer.cs" />
+    <Compile Include="Objects\Renamers\Svn\SvnFileRenamer.cs" />
+    <Compile Include="Objects\Renamers\Svn\SvnRenamer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Objects\Term.cs" />

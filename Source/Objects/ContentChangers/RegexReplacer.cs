@@ -4,9 +4,71 @@ using System.Text.RegularExpressions;
 
 namespace Refuctor
 {
-    public class RegexReplacer : ContentChanger
+
+    public class CleanCommentsAttributes : ContentChanger
     {
-        public RegexReplacer(FileInfo file, bool isTestMode) : base(file, isTestMode)
+        protected override string GetNewContent()
+        {
+            var originalContent = GetOriginalContent();
+            var newContent = originalContent;
+            string regex = @"(?<comment>//[\w\s.:,=\-\\]*[\r\n])";
+
+            var myRegex = new Regex(regex, RegexOptions.None);
+            int changeCount = 0;
+            foreach (Match match in myRegex.Matches(originalContent))
+            {
+                var matchText = match.Groups["comment"].Value;
+                if (match.Success)
+                {
+                    newContent = newContent.Replace(matchText, string.Empty);
+                    changeCount++;
+                }
+            }
+
+            if (changeCount > 0)
+            {
+                Log.Info($"Stripped {changeCount} blocks");
+            }
+
+            return newContent;
+        }
+    }
+
+    public class RemoveMostAttributes : ContentChanger
+    {
+        protected override string GetNewContent()
+        {
+            var originalContent = GetOriginalContent();
+            var newContent = originalContent;
+            string regex = @"(?<attribute>\[[\w\(\)"" :/=.,]*\]\r\n)"; // attribute pattern
+
+            var myRegex = new Regex(regex, RegexOptions.None);
+            int changeCount = 0;
+            foreach (Match match in myRegex.Matches(originalContent))
+            {
+                var attributeText = match.Groups["attribute"].Value;
+                var isSerializable = attributeText.Contains("Serializable");
+                if (match.Success && !isSerializable)
+                {
+                    newContent = newContent.Replace(attributeText, string.Empty);
+                    changeCount++;
+                }
+            }
+
+            if (changeCount > 0)
+            {
+                Log.Info($"Stripped {changeCount} attributes");
+            }
+
+            return newContent;
+        }
+    }
+
+    public class RemoveCopyToOutputForTransforms : ContentChanger
+    {
+        protected virtual bool IsTargetFile { get; } = true;
+
+        public RemoveCopyToOutputForTransforms(FileInfo file, bool isTestMode) : base(file, isTestMode)
         {
 
         }

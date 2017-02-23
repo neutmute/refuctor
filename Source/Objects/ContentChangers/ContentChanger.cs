@@ -9,11 +9,16 @@ namespace Refuctor
 
         protected Logger Log => _log;
 
-        protected FileInfo FileInfo { get; set; }
+        public FileInfo FileInfo { get; set; }
 
         public bool IsTestMode { get; set; }
-        
-        public ContentChanger(FileInfo file, bool isTestMode)
+
+        protected ContentChanger()
+        {
+            IsTestMode = true;
+        }
+
+        protected ContentChanger(FileInfo file, bool isTestMode)
         {
             FileInfo = file;
             IsTestMode = isTestMode;

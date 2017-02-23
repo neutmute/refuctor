@@ -28,10 +28,10 @@ namespace Refuctor.Objects
 
             Extensions = new List<FileExtension>();
             Extensions = new List<FileExtension>();
-            //Extensions.Add(new FileExtension(".cs"));
+            Extensions.Add(new FileExtension(".cs"));
             //Extensions.Add(new FileExtension(".cshtml"));
             //Extensions.Add(new FileExtension(".sql"));
-            Extensions.Add(new FileExtension(".csproj"));
+            //Extensions.Add(new FileExtension(".csproj"));
             //Extensions.Add(new FileExtension(".sqlproj"));
 
             AntiFileTerms = new List<string>();
@@ -86,14 +86,24 @@ namespace Refuctor.Objects
                     //fileRenamer.Go();
 
                     Log.Info($"Processing {fileInfo.Name}");
-                    var replacer = new RegexReplacer(fileInfo, IsTestMode);
-                    replacer.Go();
+                    //var replacer = new RegexReplacer(fileInfo, IsTestMode);
+                    //replacer.Go();
+
+                    var commentCleaner = new CleanCommentsAttributes { FileInfo = fileInfo, IsTestMode = false };
+                    var attributeRemover = new RemoveMostAttributes {FileInfo = fileInfo, IsTestMode = false };
+                    var renamer = new GeneratedRenamer { FileInfo = fileInfo, IsTestMode = false };
+
+                    attributeRemover.Go();
+                    commentCleaner.Go();
+                    renamer.Go();
                 }
                 else
                 {
                     Log.Trace("Skipping {0}", fileInfo.FullName);
                 }
             }
+
+            Log.Info(GeneratedRenamer.commands.ToString());
         }
     }
 }
