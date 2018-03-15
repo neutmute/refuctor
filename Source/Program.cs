@@ -35,8 +35,8 @@ namespace Refuctor
 
             rdgParser.Go();
 
-            Console.WriteLine("Press <Enter>...");
-            Console.ReadLine();
+            //Console.WriteLine("Press <Enter>...");
+            //Console.ReadLine();
         }
     }
 }

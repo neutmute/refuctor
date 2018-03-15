@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kraken.Core;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -51,6 +52,46 @@ namespace Refuctor.Xml
             }
 
             Console.WriteLine(servers.Count);
+
+            var sb = new StringBuilder();
+            const string AhkRight = "Send {Right}";
+            const string AhkDown = "Send {Down}";
+            const string AhkLeft = "Send {Left}";
+            const string AhkBackspace = "Send {Backspace}";
+            const string AhkWait = "Sleep, 600";
+            const string NewLine = "\r\n";
+            const string AhkConfTask = "Send [\r\nSleep, 250\r\nSend ]" + NewLine + AhkWait + NewLine + AhkBackspace;
+            
+            foreach (var server in servers)
+            {
+                
+                sb.AppendLine($"Send {server.Name}");
+                sb.AppendLine(AhkWait);
+                sb.AppendLine(AhkRight);
+
+                for (int i = 0; i < 4; i++)
+                {
+                    sb.AppendLine(AhkConfTask);
+                    sb.AppendLine(AhkWait);
+                    if (i < 3)
+                    {
+                        sb.AppendLine(AhkRight);
+                    }
+                }
+
+                sb.AppendLine(AhkDown);
+                for (int i = 0; i < 4; i++)
+                {
+                    sb.AppendLine(AhkLeft);
+                }
+            }
+
+            Console.WriteLine(sb.ToString());
+            File.WriteAllText(@"D:\downloads\go.ahk", sb.ToString());
+
+            var serverCsv = servers.ToCsv("\r\n", s => s.Name);
+            File.WriteAllText(@"D:\downloads\serverCsv.txt", serverCsv);
+
         }
         
 
