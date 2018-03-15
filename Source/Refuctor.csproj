@@ -73,6 +73,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Objects\Term.cs" />
     <Compile Include="Objects\ContentChangers\WordReplacer.cs" />
+    <Compile Include="Xml\RdgParser.cs" />
+    <Compile Include="Xml\RdgXml.cs" />
+    <Compile Include="Xml\Server.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

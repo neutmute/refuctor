@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using NLog;
 using Refuctor.Objects;
+using Refuctor.Xml;
 
 namespace Refuctor
 {
@@ -14,8 +15,10 @@ namespace Refuctor
             
 
             var looper = new FileLooper();
-            looper.RootPath = @"D:\Downloads\test\Phoenix.QuoteFacade.Core\Domain\Origination\Schema";
-            looper.IsTestMode = false;
+            var rdgParser = new RdgParser();
+
+            //looper.RootPath = @"D:\Downloads\test\Phoenix.QuoteFacade.Core\Domain\Origination\Schema";
+            //looper.IsTestMode = false;
 
             //looper.Terms.Add(new Term { Target = "Metric Reading", ReplaceWith = "Metric Value" });
             //looper.Terms.Add(new Term { Target = "Mib Reading", ReplaceWith = "Mib Value" });
@@ -28,9 +31,9 @@ namespace Refuctor
             //looper.Terms.Add(new Term { Target = "Metric Scan", ReplaceWith = "Metric Reading" });
             //looper.Terms.Add(new Term {Target = "MetricScan", ReplaceWith = "MetricReading"});
             //looper.Terms.Add(new Term { Target = "MibScan", ReplaceWith = "MibReading" });
-            
 
-            looper.Go();
+
+            rdgParser.Go();
 
             Console.WriteLine("Press <Enter>...");
             Console.ReadLine();
